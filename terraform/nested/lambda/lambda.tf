@@ -47,6 +47,18 @@ resource "aws_iam_role_policy_attachment" "lambda_sqs_access_policy_attachment" 
   policy_arn = var.sqs_access_policy_arn
 }
 
+# Create CloudWatch Log group for Lambdas
+resource "aws_cloudwatch_log_group" "lambda_log_group_1" {
+  name = "/aws/lambda/agrcic-lambda-1-${var.part}"
+}
+
+resource "aws_cloudwatch_log_group" "lambda_log_group_2" {
+  name = "/aws/lambda/agrcic-lambda-2-${var.part}"
+}
+
+resource "aws_cloudwatch_log_group" "lambda_log_group_3" {
+  name = "/aws/lambda/agrcic-lambda-3-${var.part}"
+}
 
 # Create Lambda Functions
 resource "aws_lambda_function" "agrcic-lambda-1" {
@@ -56,7 +68,9 @@ resource "aws_lambda_function" "agrcic-lambda-1" {
   role = aws_iam_role.lambda_role_1.arn
   source_code_hash = filebase64sha256("../../lambda_functions.zip")
   filename = "../../lambda_functions.zip"
+  depends_on = [aws_cloudwatch_log_group.lambda_log_group_1]
 }
+
 resource "aws_lambda_function" "agrcic-lambda-2" {
   function_name = "agrcic-lambda-2-${var.part}"
   handler = "lambda_2.lambda_handler"
@@ -64,7 +78,9 @@ resource "aws_lambda_function" "agrcic-lambda-2" {
   role = aws_iam_role.lambda_role_1.arn
   source_code_hash = filebase64sha256("../../lambda_functions.zip")
   filename = "../../lambda_functions.zip"
+  depends_on = [aws_cloudwatch_log_group.lambda_log_group_2]
 }
+
 resource "aws_lambda_function" "agrcic-lambda-3" {
   function_name = "agrcic-lambda-3-${var.part}"
   handler = "lambda_3.lambda_handler"
@@ -72,4 +88,5 @@ resource "aws_lambda_function" "agrcic-lambda-3" {
   role = aws_iam_role.lambda_role_1.arn
   source_code_hash = filebase64sha256("../../lambda_functions.zip")
   filename = "../../lambda_functions.zip"
+  depends_on = [aws_cloudwatch_log_group.lambda_log_group_3]
 }

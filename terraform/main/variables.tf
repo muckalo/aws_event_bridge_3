@@ -18,7 +18,7 @@ variable "region" {
 variable "part" {
   description = "A part identifier for naming resources"
   type        = string
-  default     = "5"  # You can change this default or set it at runtime
+  default     = "6"  # You can change this default or set it at runtime
 }
 
 variable "email" {
