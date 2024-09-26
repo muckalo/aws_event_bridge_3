@@ -56,3 +56,11 @@ module "lambda_sf" {
   sqs_queue_1_arn = module.sqs_stack.sqs_queue_1_arn
   agrcic_state_machine_1_arn = module.step_function_stack.agrcic_state_machine_1_arn
 }
+
+# Module SNS
+module "sns_stack" {
+  source = "../nested/sns"
+  part = var.part
+  dlq_name = module.sqs_stack.dlq_name
+  email = var.email
+}

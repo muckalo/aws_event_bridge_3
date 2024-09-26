@@ -20,3 +20,8 @@ variable "part" {
   type        = string
   default     = "5"  # You can change this default or set it at runtime
 }
+
+variable "email" {
+  description = "The email address to subscribe to the SNS topic"
+  type    = string
+}

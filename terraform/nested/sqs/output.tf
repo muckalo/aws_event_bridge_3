@@ -17,3 +17,7 @@ output "sqs_access_policy_arn" {
 output "dlq_id" {
   value = aws_sqs_queue.dlq.id
 }
+
+output "dlq_name" {
+  value = aws_sqs_queue.dlq.name
+}

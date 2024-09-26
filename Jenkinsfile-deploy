@@ -28,7 +28,10 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([
+                    usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY'),
+                    string(credentialsId: 'EMAIL_SUBSCRIPTION', emailVariable: 'EMAIL')
+                ]) {
                     dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform/main') {
                         sh 'terraform init'
                     }
@@ -38,7 +41,10 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([
+                    usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY'),
+                    string(credentialsId: 'EMAIL_SUBSCRIPTION', emailVariable: 'EMAIL')
+                ]) {
                     dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform/main') {
                         sh '''
                         terraform plan \
@@ -54,13 +60,17 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([
+                    usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY'),
+                    string(credentialsId: 'EMAIL_SUBSCRIPTION', emailVariable: 'EMAIL')
+                ]) {
                     dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform/main') {
                         sh '''
                         terraform apply -auto-approve \
                         -var "aws_access_key=$AWS_ACCESS_KEY_ID" \
                         -var "aws_secret_key=$AWS_SECRET_ACCESS_KEY" \
-                        -var "region=$AWS_REGION"
+                        -var "region=$AWS_REGION" \
+                        -var "email=$EMAIL"
                         '''
                     }
                 }
