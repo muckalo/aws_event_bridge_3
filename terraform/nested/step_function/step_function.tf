@@ -30,9 +30,6 @@ resource "aws_iam_role_policy" "step_function_policy_1" {
           "lambda:InvokeFunction"
         ],
         "Resource": [
-#           aws_lambda_function.agrcic-lambda-1.arn,
-#           aws_lambda_function.agrcic-lambda-2.arn,
-#           aws_lambda_function.agrcic-lambda-3.arn
           var.agrcic_lambda_1_arn,
           var.agrcic_lambda_2_arn,
           var.agrcic_lambda_3_arn
@@ -69,19 +66,16 @@ resource "aws_sfn_state_machine" "agrcic_state_machine_1" {
       },
       "InvokeLambda1": {
         "Type": "Task",
-#         "Resource": aws_lambda_function.agrcic-lambda-1.arn,
         "Resource": var.agrcic_lambda_1_arn,
         "End": true
       },
       "InvokeLambda2": {
         "Type": "Task",
-#         "Resource": aws_lambda_function.agrcic-lambda-2.arn,
         "Resource": var.agrcic_lambda_2_arn,
         "End": true
       },
       "InvokeLambda3": {
         "Type": "Task",
-#         "Resource": aws_lambda_function.agrcic-lambda-3.arn,
         "Resource": var.agrcic_lambda_3_arn,
         "End": true
       }

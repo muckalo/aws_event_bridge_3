@@ -32,7 +32,6 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
       {
         "Effect": "Allow",
         "Action": "sqs:SendMessage",
-#         "Resource": aws_sqs_queue.sqs-queue-1.arn
         "Resource": var.sqs_queue_1_arn
       }
     ]
@@ -64,14 +63,12 @@ resource "aws_cloudwatch_event_rule" "eb-rule-1" {
   event_pattern = jsonencode({
     source = ["demo.sqs"]
   })
-#   depends_on = [aws_sqs_queue.sqs-queue-1]
 }
 
 # Create EventBridge Target for SQS
 resource "aws_cloudwatch_event_target" "eb-target-1" {
   rule = aws_cloudwatch_event_rule.eb-rule-1.name
   target_id = "agrcic-target-1-${var.part}"
-#   arn  = aws_sqs_queue.sqs-queue-1.arn
   arn  = var.sqs_queue_1_arn
   depends_on = [aws_cloudwatch_event_rule.eb-rule-1]
   input_transformer {
@@ -108,7 +105,6 @@ resource "aws_sqs_queue_policy" "event_queue_policy" {
           Service = "events.amazonaws.com"
         }
         Action = "SQS:SendMessage"
-#         Resource = aws_sqs_queue.sqs-queue-1.arn
         Resource = var.sqs_queue_1_arn
         Condition = {
           "ArnEquals" = {
