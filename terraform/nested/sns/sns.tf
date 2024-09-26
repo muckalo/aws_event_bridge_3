@@ -15,7 +15,7 @@ resource "aws_cloudwatch_metric_alarm" "dlq_alarm" {
   }
 
   # Action to send notification to SNS topic
-  alarm_action = [
+  alarm_actions = [
     aws_sns_topic.dlq_notifications_1.arn
   ]
 }
