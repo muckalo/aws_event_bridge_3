@@ -30,7 +30,7 @@ pipeline {
             steps {
                 withCredentials([
                     usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY'),
-                    string(credentialsId: 'EMAIL_SUBSCRIPTION', emailVariable: 'EMAIL')
+                    string(credentialsId: 'EMAIL_SUBSCRIPTION', variable: 'EMAIL')
                 ]) {
                     dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform/main') {
                         sh 'terraform init'
@@ -43,7 +43,7 @@ pipeline {
             steps {
                 withCredentials([
                     usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY'),
-                    string(credentialsId: 'EMAIL_SUBSCRIPTION', emailVariable: 'EMAIL')
+                    string(credentialsId: 'EMAIL_SUBSCRIPTION', variable: 'EMAIL')
                 ]) {
                     dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform/main') {
                         sh '''
@@ -62,7 +62,7 @@ pipeline {
             steps {
                 withCredentials([
                     usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY'),
-                    string(credentialsId: 'EMAIL_SUBSCRIPTION', emailVariable: 'EMAIL')
+                    string(credentialsId: 'EMAIL_SUBSCRIPTION', variable: 'EMAIL')
                 ]) {
                     dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform/main') {
                         sh '''
