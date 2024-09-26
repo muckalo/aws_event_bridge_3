@@ -10,7 +10,6 @@ resource "aws_cloudwatch_metric_alarm" "dlq_alarm" {
   threshold          = "0"  # Change this if you want to set a different threshold
   alarm_description  = "Alarm when messages are sent to DLQ"
   dimensions = {
-#     QueueName = aws_sqs_queue.dlq.name
     QueueName = var.dlq_name
   }
 
@@ -24,7 +23,6 @@ resource "aws_cloudwatch_metric_alarm" "dlq_alarm" {
 resource "aws_sns_topic" "dlq_notifications_1" {
   name = "agrcic-dlq-notifications-1-${var.part}"
 }
-
 # Subscribe Topic
 resource "aws_sns_topic_subscription" "email_subscription" {
   topic_arn = aws_sns_topic.dlq_notifications_1.arn
@@ -54,4 +52,3 @@ resource "aws_sns_topic_policy" "sns_policy" {
     ]
   })
 }
-

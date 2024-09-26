@@ -20,7 +20,6 @@ resource "aws_iam_role" "eventbridge_role" {
     ]
   })
 }
-
 # Create Policy for EventBridge to send messages to SQS
 resource "aws_iam_role_policy" "eventbridge_policy" {
   name   = "agrcic-eventbridge-policy-1-${var.part}"
@@ -37,7 +36,6 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
     ]
   })
 }
-
 # Create Policy for EventBridge to send logs to CloudWatch
 resource "aws_iam_role_policy" "eventbridge_policy_2" {
   name   = "agrcic-eventbridge-policy-2"
@@ -64,7 +62,6 @@ resource "aws_cloudwatch_event_rule" "eb-rule-1" {
     source = ["demo.sqs"]
   })
 }
-
 # Create EventBridge Target for SQS
 resource "aws_cloudwatch_event_target" "eb-target-1" {
   rule = aws_cloudwatch_event_rule.eb-rule-1.name
@@ -82,7 +79,6 @@ resource "aws_cloudwatch_event_target" "eb-target-1" {
     EOF
     }
 }
-
 # Create EventBridge Target for CloudWatch
 resource "aws_cloudwatch_event_target" "eb-target-cw-1" {
   rule      = aws_cloudwatch_event_rule.eb-rule-1.name
@@ -92,7 +88,6 @@ resource "aws_cloudwatch_event_target" "eb-target-cw-1" {
 
 # Grant EventBridge Permissions to Send Messages to SQS
 resource "aws_sqs_queue_policy" "event_queue_policy" {
-#   queue_url = aws_sqs_queue.sqs-queue-1.id
   queue_url = var.sqs_queue_1_id
   depends_on = [aws_cloudwatch_event_target.eb-target-1]
   policy = jsonencode({
@@ -115,7 +110,6 @@ resource "aws_sqs_queue_policy" "event_queue_policy" {
     ]
   })
 }
-
 # Create Policy for Sending Events to EventBridge
 resource "aws_iam_role_policy" "eventbridge_policy_3" {
   name   = "agrcic-eventbridge-policy-3"

@@ -14,7 +14,6 @@ resource "aws_iam_role" "lambda_role_1" {
     ]
   })
 }
-
 # Create Permission for Lambda to be able to create Logs
 resource "aws_iam_policy" "lambda_logging_policy" {
   name        = "agrcic-lambda-logging-policy1--${var.part}"
@@ -34,13 +33,11 @@ resource "aws_iam_policy" "lambda_logging_policy" {
     ]
   })
 }
-
 # Attach policy
 resource "aws_iam_role_policy_attachment" "lambda_logging_policy_policy_attachment" {
   role       = aws_iam_role.lambda_role_1.name
   policy_arn = aws_iam_policy.lambda_logging_policy.arn
 }
-
 # Attach the SQS access policy to the Lambda role
 resource "aws_iam_role_policy_attachment" "lambda_sqs_access_policy_attachment" {
   role       = aws_iam_role.lambda_role_1.name
@@ -51,11 +48,9 @@ resource "aws_iam_role_policy_attachment" "lambda_sqs_access_policy_attachment" 
 resource "aws_cloudwatch_log_group" "lambda_log_group_1" {
   name = "/aws/lambda/agrcic-lambda-1-${var.part}"
 }
-
 resource "aws_cloudwatch_log_group" "lambda_log_group_2" {
   name = "/aws/lambda/agrcic-lambda-2-${var.part}"
 }
-
 resource "aws_cloudwatch_log_group" "lambda_log_group_3" {
   name = "/aws/lambda/agrcic-lambda-3-${var.part}"
 }
@@ -70,7 +65,6 @@ resource "aws_lambda_function" "agrcic-lambda-1" {
   filename = "../../lambda_functions.zip"
   depends_on = [aws_cloudwatch_log_group.lambda_log_group_1]
 }
-
 resource "aws_lambda_function" "agrcic-lambda-2" {
   function_name = "agrcic-lambda-2-${var.part}"
   handler = "lambda_2.lambda_handler"
@@ -80,7 +74,6 @@ resource "aws_lambda_function" "agrcic-lambda-2" {
   filename = "../../lambda_functions.zip"
   depends_on = [aws_cloudwatch_log_group.lambda_log_group_2]
 }
-
 resource "aws_lambda_function" "agrcic-lambda-3" {
   function_name = "agrcic-lambda-3-${var.part}"
   handler = "lambda_3.lambda_handler"

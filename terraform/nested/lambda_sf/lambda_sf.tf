@@ -1,4 +1,4 @@
-# Create CloudWatch Log group for Lambdas
+# Create CloudWatch Log group for Lambda
 resource "aws_cloudwatch_log_group" "lambda_sf_log_group_1" {
   name = "/aws/lambda/agrcic-lambda-start-step-function-1-${var.part}"
 }
@@ -44,7 +44,6 @@ resource "aws_iam_role_policy" "lambda_sqs_policy" {
     ]
   })
 }
-
 # Add permission for Lambda to start execution of State Machine
 resource "aws_iam_role_policy" "lambda_step_function_policy" {
   name   = "agrcic-lambda-step-function-policy-1-${var.part}"

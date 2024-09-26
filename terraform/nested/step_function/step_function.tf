@@ -15,7 +15,6 @@ resource "aws_iam_role" "step_function_role" {
     ]
   })
 }
-
 # Attach policy to allow Step Function to invoke Lambda functions
 resource "aws_iam_role_policy" "step_function_policy_1" {
   name = "agrcic-step-function-policy-1-${var.part}"
