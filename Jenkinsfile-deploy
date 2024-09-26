@@ -29,7 +29,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform') {
+                    dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform/main') {
                         sh 'terraform init'
                     }
                 }
@@ -39,7 +39,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform') {
+                    dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform/main') {
                         sh '''
                         terraform plan \
                         -var "aws_access_key=$AWS_ACCESS_KEY_ID" \
@@ -55,7 +55,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform') {
+                    dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform/main') {
                         sh '''
                         terraform apply -auto-approve \
                         -var "aws_access_key=$AWS_ACCESS_KEY_ID" \
