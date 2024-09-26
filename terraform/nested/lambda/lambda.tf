@@ -124,22 +124,22 @@ resource "aws_lambda_function" "agrcic-lambda-1" {
   handler = "lambda_1.lambda_handler"
   runtime = "python3.9"
   role = aws_iam_role.lambda_role_1.arn
-  source_code_hash = filebase64sha256("../lambda_functions.zip")
-  filename = "../lambda_functions.zip"
+  source_code_hash = filebase64sha256("../../lambda_functions.zip")
+  filename = "../../lambda_functions.zip"
 }
 resource "aws_lambda_function" "agrcic-lambda-2" {
   function_name = "agrcic-lambda-2-${var.part}"
   handler = "lambda_2.lambda_handler"
   runtime = "python3.9"
   role = aws_iam_role.lambda_role_1.arn
-  source_code_hash = filebase64sha256("../lambda_functions.zip")
-  filename = "../lambda_functions.zip"
+  source_code_hash = filebase64sha256("../../lambda_functions.zip")
+  filename = "../../lambda_functions.zip"
 }
 resource "aws_lambda_function" "agrcic-lambda-3" {
   function_name = "agrcic-lambda-3-${var.part}"
   handler = "lambda_3.lambda_handler"
   runtime = "python3.9"
   role = aws_iam_role.lambda_role_1.arn
-  source_code_hash = filebase64sha256("../lambda_functions.zip")
-  filename = "../lambda_functions.zip"
+  source_code_hash = filebase64sha256("../../lambda_functions.zip")
+  filename = "../../lambda_functions.zip"
 }

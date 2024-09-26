@@ -5,8 +5,8 @@ resource "aws_lambda_function" "start_step_function" {
   runtime       = "python3.9"
 #   role          = aws_iam_role.lambda_role_1.arn
   role          = var.lambda_role_1_arn
-  source_code_hash = filebase64sha256("../lambda_functions.zip") # Adjust the path as necessary
-  filename      = "../lambda_functions.zip" # Adjust the path as necessary
+  source_code_hash = filebase64sha256("../../lambda_functions.zip") # Adjust the path as necessary
+  filename      = "../../lambda_functions.zip" # Adjust the path as necessary
 
   environment {
     variables = {
