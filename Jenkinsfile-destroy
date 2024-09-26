@@ -41,10 +41,7 @@ pipeline {
 
         stage('Terraform Refresh') {
             steps {
-                withCredentials([
-                    usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY'),
-                    string(credentialsId: 'EMAIL_SUBSCRIPTION', variable: 'EMAIL')
-                ]) {
+                withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3/terraform/main') {
                         sh '''
                         terraform refresh \
