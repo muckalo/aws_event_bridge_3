@@ -1,6 +1,6 @@
 # Create Dead Letter Queue
 resource "aws_sqs_queue" "dlq" {
-  name = "agrcic-sqs-dlq-1-1-${var.part}"
+  name = "agrcic-sqs-dlq-1-${var.part}"
   visibility_timeout_seconds = 30
   message_retention_seconds   = 86400  # Retain messages for 1 day (86400 seconds)
 }
