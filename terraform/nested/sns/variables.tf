@@ -1,4 +1,4 @@
-variable "part" {
+variable "run_version" {
   type    = string
 }
 

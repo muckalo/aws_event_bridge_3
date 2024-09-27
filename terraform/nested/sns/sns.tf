@@ -1,6 +1,6 @@
 # CloudWatch Alarm for DLQ
 resource "aws_cloudwatch_metric_alarm" "dlq_alarm" {
-  alarm_name          = "agrcic-DLQMessagesAlarm-1-${var.part}"
+  alarm_name          = "agrcic-DLQMessagesAlarm-1-v-${var.run_version}"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "1"
   metric_name        = "ApproximateNumberOfMessagesVisible"
@@ -21,7 +21,7 @@ resource "aws_cloudwatch_metric_alarm" "dlq_alarm" {
 
 # Create SNS Topic
 resource "aws_sns_topic" "dlq_notifications_1" {
-  name = "agrcic-dlq-notifications-1-${var.part}"
+  name = "agrcic-dlq-notifications-1-v-${var.run_version}"
 }
 # Subscribe Topic
 resource "aws_sns_topic_subscription" "email_subscription" {

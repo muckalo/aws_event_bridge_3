@@ -1,11 +1,11 @@
 # Create CloudWatch Log group for Lambda
 resource "aws_cloudwatch_log_group" "lambda_sf_log_group_1" {
-  name = "/aws/lambda/agrcic-lambda-start-step-function-1-${var.part}"
+  name = "/aws/lambda/agrcic-lambda-start-step-function-1-v-${var.run_version}"
 }
 
 # Create Lambda Function to Start the Step Function
 resource "aws_lambda_function" "start_step_function" {
-  function_name = "agrcic-lambda-start-step-function-1-${var.part}"
+  function_name = "agrcic-lambda-start-step-function-1-v-${var.run_version}"
   handler       = "lambda_start_step_function.lambda_handler" # Adjust based on your handler
   runtime       = "python3.9"
   role          = var.lambda_role_1_arn
@@ -22,7 +22,7 @@ resource "aws_lambda_function" "start_step_function" {
 
 # Add permission for Lambda to read from SQS
 resource "aws_iam_role_policy" "lambda_sqs_policy" {
-  name   = "agrcic-lambda-sqs-policy-1-${var.part}"
+  name   = "agrcic-lambda-sqs-policy-1-v-${var.run_version}"
   role   = var.lambda_role_1_id
 
   policy = jsonencode({
@@ -46,7 +46,7 @@ resource "aws_iam_role_policy" "lambda_sqs_policy" {
 }
 # Add permission for Lambda to start execution of State Machine
 resource "aws_iam_role_policy" "lambda_step_function_policy" {
-  name   = "agrcic-lambda-step-function-policy-1-${var.part}"
+  name   = "agrcic-lambda-step-function-policy-1-v-${var.run_version}"
   role   = var.lambda_role_1_id
 
   policy = jsonencode({

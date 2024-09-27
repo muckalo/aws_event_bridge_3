@@ -18,13 +18,13 @@ provider "aws" {
 # Module SQS
 module "sqs_stack" {
   source = "../nested/sqs"
-  part = var.part
+  run_version = var.run_version
 }
 
 # Module EventBridge
 module "event_bridge_stack" {
   source = "../nested/event_bridge"
-  part = var.part
+  run_version = var.run_version
   region = var.region
   sqs_queue_1_arn = module.sqs_stack.sqs_queue_1_arn
   sqs_queue_1_id = module.sqs_stack.sqs_queue_1_id
@@ -33,23 +33,23 @@ module "event_bridge_stack" {
 # Module Lambda
 module "lambda_stack" {
   source = "../nested/lambda"
-  part = var.part
+  run_version = var.run_version
   sqs_access_policy_arn = module.sqs_stack.sqs_access_policy_arn
 }
 
 # Module StepFunction
 module "step_function_stack" {
   source = "../nested/step_function"
-  part = var.part
-  agrcic_lambda_1_arn = module.lambda_stack.agrcic_lambda_1_arn
-  agrcic_lambda_2_arn = module.lambda_stack.agrcic_lambda_2_arn
-  agrcic_lambda_3_arn = module.lambda_stack.agrcic_lambda_3_arn
+  run_version = var.run_version
+  agrcic_lambda_choice_1_arn = module.lambda_stack.agrcic_lambda_choice_1_arn
+  agrcic_lambda_choice_2_arn = module.lambda_stack.agrcic_lambda_choice_2_arn
+  agrcic_lambda_default_choice_arn = module.lambda_stack.agrcic_lambda_default_choice_arn
 }
 
 # Module Lambda-StepFunction
 module "lambda_sf" {
   source = "../nested/lambda_sf"
-  part = var.part
+  run_version = var.run_version
   lambda_role_1_arn = module.lambda_stack.lambda_role_1_arn
   lambda_role_1_id = module.lambda_stack.lambda_role_1_id
   dlq_id = module.sqs_stack.dlq_id
@@ -60,7 +60,7 @@ module "lambda_sf" {
 # Module SNS
 module "sns_stack" {
   source = "../nested/sns"
-  part = var.part
+  run_version = var.run_version
   dlq_name = module.sqs_stack.dlq_name
   email = var.email
 }

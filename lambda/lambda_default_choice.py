@@ -1,5 +1,5 @@
 """
-Lambda 3
+Lambda Default Choice
 """
 
 import json
@@ -7,7 +7,7 @@ import json
 
 def lambda_handler(event, context):
     """
-    Lambda Handler - Test 3
+    Lambda Handler - Test Default Choice
 
     :param event:
     :param context:
@@ -15,12 +15,12 @@ def lambda_handler(event, context):
     """
 
     # Log the received event
-    print("Lambda 3 received event:", json.dumps(event))
+    print("Lambda default choice received event:", json.dumps(event))
 
     # Process the event
     result = {
         "status": "success",
-        "message": "Processed by Lambda 3",
+        "message": "Processed by Lambda Default Choice",
         "input": event
     }
 

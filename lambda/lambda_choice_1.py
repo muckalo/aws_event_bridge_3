@@ -1,5 +1,5 @@
 """
-Lambda 1
+Lambda Choice 1
 """
 
 import json
@@ -7,7 +7,7 @@ import json
 
 def lambda_handler(event, context):
     """
-    Lambda Handler - Test 1
+    Lambda Handler - Test Choice 1
 
     :param event:
     :param context:
@@ -15,7 +15,7 @@ def lambda_handler(event, context):
     """
 
     # Log the received event
-    print("Lambda 1 received event:", json.dumps(event))
+    print("Lambda choice 1 received event:", json.dumps(event))
 
     # Process the event
     result = {

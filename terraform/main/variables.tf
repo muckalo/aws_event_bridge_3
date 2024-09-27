@@ -15,9 +15,9 @@ variable "region" {
   type        = string
 }
 
-variable "part" {
-  description = "A part identifier for naming resources"
-  type        = string
+variable "run_version" {
+  description = "A version identifier for naming resources"
+  type = string
   default     = "6"  # You can change this default or set it at runtime
 }
 

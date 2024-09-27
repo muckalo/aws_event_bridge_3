@@ -1,5 +1,5 @@
-output "part" {
-  value = var.part
+output "run_version" {
+  value = var.run_version
 }
 
 output "sqs_queue_1_arn" {

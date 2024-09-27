@@ -1,11 +1,11 @@
 # Create CloudWatch Log Group For EventBridge
 resource "aws_cloudwatch_log_group" "eb-rule-log-group-1" {
-  name = "/aws/events/agrcic-eb-rule-1-${var.part}"
+  name = "/aws/events/agrcic-eb-rule-1-v-${var.run_version}"
 }
 
 # Create Role for EventBridge
 resource "aws_iam_role" "eventbridge_role" {
-  name = "agrcic-eventbridge-role-1-${var.part}"
+  name = "agrcic-eventbridge-role-1-v-${var.run_version}"
 
   assume_role_policy = jsonencode({
     "Version": "2012-10-17",
@@ -22,7 +22,7 @@ resource "aws_iam_role" "eventbridge_role" {
 }
 # Create Policy for EventBridge to send messages to SQS
 resource "aws_iam_role_policy" "eventbridge_policy" {
-  name   = "agrcic-eventbridge-policy-1-${var.part}"
+  name   = "agrcic-eventbridge-policy-1-v-${var.run_version}"
   role   = aws_iam_role.eventbridge_role.id
 
   policy = jsonencode({
@@ -38,7 +38,7 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
 }
 # Create Policy for EventBridge to send logs to CloudWatch
 resource "aws_iam_role_policy" "eventbridge_policy_2" {
-  name   = "agrcic-eventbridge-policy-2"
+  name   = "agrcic-eventbridge-policy-2-v-${var.run_version}"
   role   = aws_iam_role.eventbridge_role.id
   policy = jsonencode({
     "Version": "2012-10-17",
@@ -57,7 +57,7 @@ resource "aws_iam_role_policy" "eventbridge_policy_2" {
 
 # Create EventBridge Rule
 resource "aws_cloudwatch_event_rule" "eb-rule-1" {
-  name = "agrcic-eb-rule-1-${var.part}"
+  name = "agrcic-eb-rule-1-v-${var.run_version}"
   event_pattern = jsonencode({
     source = ["demo.sqs"]
   })
@@ -65,7 +65,7 @@ resource "aws_cloudwatch_event_rule" "eb-rule-1" {
 # Create EventBridge Target for SQS
 resource "aws_cloudwatch_event_target" "eb-target-1" {
   rule = aws_cloudwatch_event_rule.eb-rule-1.name
-  target_id = "agrcic-target-1-${var.part}"
+  target_id = "agrcic-target-1-v-${var.run_version}"
   arn  = var.sqs_queue_1_arn
   depends_on = [aws_cloudwatch_event_rule.eb-rule-1]
   input_transformer {
@@ -82,7 +82,7 @@ resource "aws_cloudwatch_event_target" "eb-target-1" {
 # Create EventBridge Target for CloudWatch
 resource "aws_cloudwatch_event_target" "eb-target-cw-1" {
   rule      = aws_cloudwatch_event_rule.eb-rule-1.name
-  target_id = "agrcic-target-cw-1-${var.part}"
+  target_id = "agrcic-target-cw-1-v-${var.run_version}"
   arn = aws_cloudwatch_log_group.eb-rule-log-group-1.arn
 }
 
@@ -94,7 +94,7 @@ resource "aws_sqs_queue_policy" "event_queue_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid = "agrcic-EventBridgeSendMessage-1-${var.part}",
+        Sid = "agrcic-EventBridgeSendMessage-1-v-${var.run_version}",
         Effect = "Allow"
         Principal = {
           Service = "events.amazonaws.com"
@@ -112,7 +112,7 @@ resource "aws_sqs_queue_policy" "event_queue_policy" {
 }
 # Create Policy for Sending Events to EventBridge
 resource "aws_iam_role_policy" "eventbridge_policy_3" {
-  name   = "agrcic-eventbridge-policy-3"
+  name   = "agrcic-eventbridge-policy-3-v-${var.run_version}"
   role   = aws_iam_role.eventbridge_role.id
   policy = jsonencode({
     "Version": "2012-10-17",
