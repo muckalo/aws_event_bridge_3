@@ -15,7 +15,7 @@ This project implements an event-driven architecture using various AWS services 
    - **Choice 1**: Triggers `lambda_choice_1`.
    - **Choice 2**: Triggers `lambda_choice_2`.
    - **Default Choice**: Triggers `lambda_default_choice`.
-5. **Event Processing**: Each of the three Lambda functions processes the event and logs the outcome to **CloudWatch**.
+5. **Event Processing**: Each of the three Lambda functions processes the event.
 6. **Logging**: All Lambda functions log their execution details to CloudWatch for monitoring and debugging purposes.
 
 ## Architecture Diagram
