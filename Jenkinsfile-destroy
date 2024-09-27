@@ -8,8 +8,8 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 dir('/var/lib/jenkins/workspace/shared-agrcic-resources-event-bridge-3') {
-                    git branch: 'main', credentialsId: 'github-creds', url: 'https://github.com/muckalo/aws_event_bridge_3.git'
-//                    git branch: 'main', url: 'https://github.com/muckalo/aws_event_bridge_3.git'
+//                    git branch: 'main', credentialsId: 'github-creds', url: 'https://github.com/muckalo/aws_event_bridge_3.git'
+                    git branch: 'main', url: 'https://github.com/muckalo/aws_event_bridge_3.git'
                 }
             }
         }
